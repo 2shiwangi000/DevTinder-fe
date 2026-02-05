@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { validateEmail, validatePassword } from "../utils/validators";
-import {login} from "../service/auth";
+import { login } from "../service/auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
+import { useNotification } from "./common/NotificationContext";
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { showAlert } = useNotification();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -16,7 +18,7 @@ const Login = () => {
     password: "",
   });
 
-  const handleSubmit = async(e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const emailError = validateEmail(email);
@@ -29,12 +31,16 @@ const Login = () => {
 
     if (emailError || passwordError) return;
 
-    login(email,password).then((res) => {
-      if(res?.code === 200){
+    login(email, password).then((res) => {
+      console.log(res);
+      if (res?.code === 200) {
+        showAlert(res?.message, "success");
         dispatch(addUser(res?.data));
-        navigate('/');
+        navigate("/");
+      } else {
+        showAlert(res?.message || "Invalid credentials", "error");
       }
-    })
+    });
   };
 
   return (

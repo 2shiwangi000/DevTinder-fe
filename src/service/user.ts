@@ -7,7 +7,8 @@ export async function userGetByID() {
       withCredentials: true,
     });
     return res?.data;
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
+    return err?.response?.data;
   }
 }

@@ -14,8 +14,9 @@ export async function login(emailId: string, password: string) {
       },
     );
     return res?.data;
-  } catch (err) {
+  } catch (err: any) {
     console.log(err);
+    return err?.response?.data;
   }
 }
 
@@ -29,7 +30,8 @@ export async function logout() {
       },
     );
     return res?.data;
-  } catch (err) {
+  } catch (err:any) {
     console.log(err);
+    return err?.response?.data;
   }
 }
