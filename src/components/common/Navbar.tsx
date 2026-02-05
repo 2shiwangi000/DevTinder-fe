@@ -1,15 +1,19 @@
 import { Link, useNavigate } from "react-router-dom";
 import { logout } from "../../service/auth";
 import { useAppSelector } from "../../utils/hooks";
+import { removeUser } from "../../store/slices/userSlice";
+import { useDispatch } from "react-redux";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const user = useAppSelector((store) => store.user.currentUser);
 
   const handleClick = (e: any) => {
     e.stopPropagation();
     logout().then((res) => {
       if (res?.code === 200) {
+        dispatch(removeUser());
         navigate("/login");
       }
     });
