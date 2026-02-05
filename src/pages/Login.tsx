@@ -4,8 +4,7 @@ import { login } from "../service/auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
-import { useNotification } from "./common/NotificationContext";
-
+import { useNotification } from "../context/NotificationContext";
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
