@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { validateEmail, validatePassword } from "./utils/validators";
-import {login} from "../src/service/auth";
+import { validateEmail, validatePassword } from "../utils/validators";
+import {login} from "../service/auth";
 import { useDispatch } from "react-redux";
-import { addUser } from "./store/slices/userSlice";
+import { addUser } from "../store/slices/userSlice";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {

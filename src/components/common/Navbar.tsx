@@ -1,4 +1,5 @@
-import { useAppSelector } from "./utils/hooks";
+import { useAppSelector } from "../../utils/hooks";
+
 
  const Navbar = () => {
   const user = useAppSelector((store) => store.user.currentUser);
