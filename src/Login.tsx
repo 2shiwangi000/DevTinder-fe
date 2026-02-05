@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { validateEmail, validatePassword } from "./utils/validators";
 import {login} from "../src/service/auth";
+import { useDispatch } from "react-redux";
+import { addUser } from "./store/slices/userSlice";
 
 const Login = () => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,7 +27,11 @@ const Login = () => {
 
     if (emailError || passwordError) return;
 
-    login(email,password)
+    login(email,password).then((res) => {
+      if(res?.code === 200){
+        dispatch(addUser(res?.data));
+      }
+    })
   };
 
   return (
