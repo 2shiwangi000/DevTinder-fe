@@ -8,7 +8,7 @@ export async function login(emailId:string, password:string) {
     },{
       withCredentials:true
     });
-    console.log(res);
+    return res?.data;
   } catch (err) {
     console.log(err);
   }
