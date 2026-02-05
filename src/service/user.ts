@@ -6,6 +6,7 @@ export async function userGetByID() {
     const res = await axios.get(BASE_URL + "profile/view", {
       withCredentials: true,
     });
+    
     return { authenticated: true, user: res.data };
   } catch (err: any) {
     console.log(err);

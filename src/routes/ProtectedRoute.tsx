@@ -1,5 +1,5 @@
 import { Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type JSX } from "react";
 import { useAppDispatch } from "../utils/hooks";
 import { addUser, removeUser } from "../store/slices/userSlice";
 import { userGetByID } from "../service/user";
@@ -13,8 +13,8 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     const verify = async () => {
       const res = await userGetByID();
 
-      if (res.authenticated) {
-        dispatch(addUser(res.user));
+      if (res.authenticated && res?.user?.code === 200) {
+        dispatch(addUser(res.user?.data));
         setAllowed(true);
       } else {
         dispatch(removeUser());

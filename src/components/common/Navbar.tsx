@@ -8,6 +8,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useAppSelector((store) => store.user.currentUser);
+  console.log(user)
 
   const handleClick = (e: any) => {
     e.stopPropagation();
