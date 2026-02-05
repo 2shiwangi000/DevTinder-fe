@@ -18,3 +18,18 @@ export async function login(emailId: string, password: string) {
     console.log(err);
   }
 }
+
+export async function logout() {
+  try {
+    const res = await axios.post(
+      BASE_URL + "logout",
+      {},
+      {
+        withCredentials: true,
+      },
+    );
+    return res?.data;
+  } catch (err) {
+    console.log(err);
+  }
+}
