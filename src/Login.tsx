@@ -3,9 +3,11 @@ import { validateEmail, validatePassword } from "./utils/validators";
 import {login} from "../src/service/auth";
 import { useDispatch } from "react-redux";
 import { addUser } from "./store/slices/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -30,6 +32,7 @@ const Login = () => {
     login(email,password).then((res) => {
       if(res?.code === 200){
         dispatch(addUser(res?.data));
+        navigate('/');
       }
     })
   };

@@ -1,43 +1,68 @@
 import { useAppSelector } from "./utils/hooks";
 
  const Navbar = () => {
-  const user = useAppSelector((store) => store.user);
+  const user = useAppSelector((store) => store.user.currentUser);
+  console.log(user)
   return (
-    <div className="navbar bg-base-100 shadow-sm">
+   <div className="navbar px-6 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white shadow-lg">
+      {/* Logo */}
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">👩‍💻 DevTinder</a>
+        <a className="text-xl font-bold tracking-wide flex items-center gap-2 cursor-pointer hover:text-pink-400 transition">
+          <span className="text-2xl">👩‍💻</span>
+          Dev<span className="text-pink-400">Tinder</span>
+        </a>
       </div>
 
-      <div className="flex gap-2">
-        <div className="dropdown dropdown-end mx-5">
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="User avatar"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-              />
+      {/* Right Section */}
+      {user && (
+        <div className="flex items-center gap-4">
+          {/* Username (optional but classy) */}
+          <p className="hidden sm:block text-sm text-gray-300">
+            Hey, <span className="font-medium text-white">{user.firstName}</span>
+          </p>
+
+          {/* Avatar */}
+          <div className="dropdown dropdown-end">
+            <div
+              tabIndex={0}
+              role="button"
+              className="btn btn-circle avatar ring ring-pink-400 ring-offset-base-100 ring-offset-2 hover:scale-105 transition"
+            >
+              <div className="w-10 rounded-full">
+                <img
+                  alt="User avatar"
+                  src={
+                    user.photo ||
+                    "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                  }
+                />
+              </div>
             </div>
-          </div>
 
-          <ul
-            tabIndex={-1}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-          >
-            <li>
-              <a className="justify-between">
-                Profile
-                <span className="badge">New</span>
-              </a>
-            </li>
-            <li><a>Settings</a></li>
-            <li><a>Logout</a></li>
-          </ul>
+            {/* Dropdown */}
+            <ul
+              tabIndex={-1}
+              className="menu menu-sm dropdown-content mt-3 w-52 rounded-xl bg-slate-800 text-gray-200 shadow-xl border border-slate-700"
+            >
+              <li>
+                <a className="hover:bg-slate-700 rounded-lg">
+                  👤 Profile
+                </a>
+              </li>
+              <li>
+                <a className="hover:bg-slate-700 rounded-lg">
+                  ⚙️ Settings
+                </a>
+              </li>
+              <li>
+                <a className="hover:bg-red-500/20 text-red-400 rounded-lg">
+                  🚪 Logout
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

@@ -1,14 +1,23 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { User } from "../../types/user";
+
+interface UserState {
+  currentUser: User | null;
+}
+ 
+const initialState: UserState = {
+  currentUser: null,
+};
 
 const userSlice = createSlice({
   name: "user",
-  initialState: null,
+  initialState,
   reducers: {
-    addUser: (state, action) => {
-      return action.payload;
+    addUser: (state, action: PayloadAction<User>) => {
+      state.currentUser = action.payload;
     },
     removeUser: (state, action) => {
-      return null;
+      null;
     },
   },
 });
