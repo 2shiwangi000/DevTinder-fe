@@ -5,6 +5,8 @@ export async function login(emailId:string, password:string) {
     const res = await axios.post("http://localhost:4000/login",{
       emailId: emailId,
       password: password,
+    },{
+      withCredentials:true
     });
     console.log(res);
   } catch (err) {
