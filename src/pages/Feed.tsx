@@ -1,12 +1,68 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../utils/hooks";
+import { getUsersFeed } from "../service/feed";
+import { addFeed } from "../store/slices/feedSlice";
+import { useNotification } from "../context/NotificationContext";
+import FeedCard from "./FeedCard";
 
 const Feed = () => {
-  
-  return (
-    <div>
-      feed
-    </div>
-  )
-}
+  const dispatch = useAppDispatch();
+  const { showAlert } = useNotification();
+  const { currentFeed, total, page, limit, hasMore } = useAppSelector(
+    (store) => store.feed,
+  );
+  const [index, setIndex] = React.useState(0);
+  const [loading, setLoading] = React.useState(false);
+  const hasFetchedRef = React.useRef(false);
+  console.log(index);
 
-export default Feed
+  const fetchFeed = async (page: number) => {
+    setLoading(true);
+    const res = await getUsersFeed({ page, limit });
+    setLoading(false);
+
+    if (res?.code === 200) {
+      dispatch(addFeed(res.data));
+    } else {
+      showAlert(res?.message || "something went wrong", "error");
+    }
+  };
+
+  const handleAction = async (type: "accept" | "ignore") => {
+    // TODO → accept / ignore API call
+    const nextIndex = index + 1;
+    // if we reached end of current stack
+    if (nextIndex === currentFeed.length && hasMore && !loading) {
+      await fetchFeed(page + 1);
+    }
+    setIndex(nextIndex);
+  };
+
+  useEffect(() => {
+    if (hasFetchedRef.current) return;
+
+    hasFetchedRef.current = true;
+    fetchFeed(1);
+  }, []);
+
+  if (!currentFeed[index] && !hasMore) {
+    return <div className="mt-10 text-center">No more devs 😴</div>;
+  }
+
+  return (
+    <div className="flex justify-center mt-10">
+      {currentFeed[index] && (
+        <FeedCard
+          key={currentFeed[index]._id}
+          user={currentFeed[index]}
+          onAccept={() => handleAction("accept")}
+          onIgnore={() => handleAction("ignore")}
+        />
+      )}
+
+      {loading && <span className="loading loading-spinner" />}
+    </div>
+  );
+};
+
+export default Feed;
