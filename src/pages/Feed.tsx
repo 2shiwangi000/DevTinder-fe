@@ -4,6 +4,7 @@ import { getUsersFeed } from "../service/feed";
 import { addFeed } from "../store/slices/feedSlice";
 import { useNotification } from "../context/NotificationContext";
 import FeedCard from "./FeedCard";
+import { sendConnectionReq } from "../service/user";
 
 const Feed = () => {
   const dispatch = useAppDispatch();
@@ -28,14 +29,24 @@ const Feed = () => {
     }
   };
 
-  const handleAction = async (type: "accept" | "ignore") => {
+  const handleAction = async (
+    status: "interested" | "ignored",
+    userid: string,
+  ) => {
     // TODO → accept / ignore API call
-    const nextIndex = index + 1;
-    // if we reached end of current stack
-    if (nextIndex === currentFeed.length && hasMore && !loading) {
-      await fetchFeed(page + 1);
-    }
-    setIndex(nextIndex);
+    sendConnectionReq({ userid, status }).then((res) => {
+      if (res?.code === 200) {
+        showAlert(res?.message, "success");
+        const nextIndex = index + 1;
+        // if we reached end of current stack
+        if (nextIndex === currentFeed.length && hasMore && !loading) {
+          fetchFeed(page + 1);
+        }
+        setIndex(nextIndex);
+      } else {
+        showAlert(res?.message || "something went wrong", "error");
+      }
+    });
   };
 
   useEffect(() => {
@@ -55,8 +66,8 @@ const Feed = () => {
         <FeedCard
           key={currentFeed[index]._id}
           user={currentFeed[index]}
-          onAccept={() => handleAction("accept")}
-          onIgnore={() => handleAction("ignore")}
+          onAccept={() => handleAction("interested", currentFeed[index]._id)}
+          onIgnore={() => handleAction("ignored", currentFeed[index]._id)}
         />
       )}
 

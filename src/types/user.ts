@@ -1,9 +1,13 @@
 export interface User {
   _id: string;
   firstName: string;
-  lastName: string;
+  lastName?: string;
   emailId: string;
+  age?: number;
+  gender?: "male" | "female" | "lgbtq";
+  hobbies?: string[];
   photo?: string;
-  bio?: string;
-  skills?: string[];
+  about?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
