@@ -15,7 +15,6 @@ const Feed = () => {
   const [index, setIndex] = React.useState(0);
   const [loading, setLoading] = React.useState(false);
   const hasFetchedRef = React.useRef(false);
-  console.log(index);
 
   const fetchFeed = async (page: number) => {
     setLoading(true);
@@ -36,7 +35,7 @@ const Feed = () => {
     // TODO → accept / ignore API call
     sendConnectionReq({ userid, status }).then((res) => {
       if (res?.code === 200) {
-        showAlert(res?.message, "success");
+        // showAlert(res?.message, "success");
         const nextIndex = index + 1;
         // if we reached end of current stack
         if (nextIndex === currentFeed.length && hasMore && !loading) {

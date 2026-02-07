@@ -67,7 +67,7 @@ const FeedCard = ({ key, user, onAccept, onIgnore }: PropsCard) => {
           </button>
 
           <button className="btn btn-primary" onClick={handleAccept}>
-            ✅ Accept
+            ✅ Interested
           </button>
         </div>
       </div>
