@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from "../utils/hooks";
 import { appendReq } from "../store/slices/requestSlice";
 import type { User } from "../types/user";
 import { useNotification } from "../context/NotificationContext";
+import { genderBadgeClass } from "../utils/utils";
 
 const Requests = () => {
   const dispatch = useAppDispatch();
@@ -56,13 +57,6 @@ const Requests = () => {
         {currentReq.map((user: User) => {
           const hobbies = user.hobbies?.slice(0, 2) || [];
 
-          const genderStyle =
-            user.gender === "male"
-              ? "badge-info"
-              : user.gender === "female"
-                ? "badge-secondary"
-                : "badge-accent";
-
           return (
             <div
               key={user._id}
@@ -85,13 +79,15 @@ const Requests = () => {
                 <div className="flex gap-1 mt-1 flex-wrap">
                   {user.age && (
                     <span className="badge badge-ghost badge-sm">
-                      {user.age} yrs
+                      {user?.age} yrs
                     </span>
                   )}
 
                   {user.gender && (
-                    <span className={`badge badge-sm ${genderStyle}`}>
-                      {user.gender}
+                    <span
+                      className={`badge badge-sm ${genderBadgeClass(user?.gender)} capitalize`}
+                    >
+                      {user?.gender}
                     </span>
                   )}
 

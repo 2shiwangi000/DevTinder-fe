@@ -3,6 +3,7 @@ import { getAllConnections } from "../service/user";
 import { addConnections } from "../store/slices/connectionSlice";
 import { useAppDispatch, useAppSelector } from "../utils/hooks";
 import type { User } from "../types/user";
+import { genderBadgeClass } from "../utils/utils";
 
 const Connections = () => {
   const dispatch = useAppDispatch();
@@ -36,19 +37,7 @@ const Connections = () => {
         <h2 className="p-4 font-semibold text-lg">Connections</h2>
 
         {currentConnections?.map((user) => {
-          const metaParts = [
-            user.age && `${user.age}`,
-            user.gender && user.gender,
-            user.hobbies?.slice(0, 2).join(", "),
-          ].filter(Boolean);
           const hobbies = user.hobbies?.slice(0, 2) || [];
-
-          const genderStyle =
-            user.gender === "male"
-              ? "badge-info"
-              : user.gender === "female"
-                ? "badge-secondary"
-                : "badge-accent";
 
           return (
             <div
@@ -97,8 +86,10 @@ const Connections = () => {
 
                     {/* Gender */}
                     {user.gender && (
-                      <span className={`badge badge-sm ${genderStyle}`}>
-                        {user.gender}
+                      <span
+                        className={`badge badge-sm ${genderBadgeClass(user?.gender)} capitalize`}
+                      >
+                        {user?.gender || "N/A"}
                       </span>
                     )}
 

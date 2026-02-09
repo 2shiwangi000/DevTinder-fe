@@ -10,5 +10,5 @@ export interface User {
   about?: string;
   createdAt?: string;
   updatedAt?: string;
-  length?:number
+  length?: number;
 }
