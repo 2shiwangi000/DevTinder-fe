@@ -4,7 +4,7 @@ import type { User } from "../../types/user";
 interface UserState {
   currentUser: User | null;
 }
- 
+
 const initialState: UserState = {
   currentUser: null,
 };
@@ -16,8 +16,8 @@ const userSlice = createSlice({
     addUser: (state, action: PayloadAction<User>) => {
       state.currentUser = action.payload;
     },
-    removeUser: () => {
-      null;
+    removeUser: (state) => {
+      state.currentUser = null;
     },
   },
 });

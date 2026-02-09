@@ -3,6 +3,9 @@ import { logout } from "../../service/auth";
 import { useAppSelector } from "../../utils/hooks";
 import { removeUser } from "../../store/slices/userSlice";
 import { useDispatch } from "react-redux";
+import { removeFeed } from "../../store/slices/feedSlice";
+import { removeConnections } from "../../store/slices/connectionSlice";
+import { removeReq } from "../../store/slices/requestSlice";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -14,6 +17,9 @@ const Navbar = () => {
     logout().then((res) => {
       if (res?.code === 200) {
         dispatch(removeUser());
+        dispatch(removeFeed());
+        dispatch(removeConnections());
+        dispatch(removeReq());
         navigate("/login");
       }
     });

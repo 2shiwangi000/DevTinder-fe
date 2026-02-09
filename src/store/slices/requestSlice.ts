@@ -18,11 +18,11 @@ const reqSlice = createSlice({
       state.currentReq = action.payload.map((req) => req.fromUserId);
       state.currentReq.length = action.payload.length;
     },
-    removeConnections: (state) => {
+    removeReq: (state) => {
       state.currentReq = [];
     },
   },
 });
 
-export const { appendReq, removeConnections } = reqSlice.actions;
+export const { appendReq, removeReq } = reqSlice.actions;
 export default reqSlice.reducer;
