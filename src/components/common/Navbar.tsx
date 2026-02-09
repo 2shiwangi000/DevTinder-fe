@@ -29,10 +29,10 @@ const Navbar = () => {
     <div className="navbar px-6 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white shadow-lg">
       {/* Logo */}
       <div className="flex-1">
-        <a className="text-xl font-bold tracking-wide flex items-center gap-2 cursor-pointer hover:text-pink-400 transition">
+        <Link className="text-xl font-bold tracking-wide flex items-center gap-2 cursor-pointer hover:text-pink-400 transition" to="/">
           <span className="text-2xl">👩‍💻</span>
           Dev<span className="text-pink-400">Tinder</span>
-        </a>
+        </Link>
       </div>
 
       {/* Right Section */}

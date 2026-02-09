@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from "../utils/hooks";
 import { updateProfile } from "../service/user";
 import { addUser } from "../store/slices/userSlice";
 import { useNotification } from "../context/NotificationContext";
-import { genderBadgeClass } from "../utils/utils";
+import { genderBadgeClass, genderLabel } from "../utils/utils";
 
 const Profile = () => {
   const dispatch = useAppDispatch();
@@ -89,7 +89,7 @@ const Profile = () => {
 
                 {formData.gender && (
                   <span className={`badge ${genderBadgeClass(formData?.gender)} capitalize`}>
-                    {formData.gender}
+                    {genderLabel(formData?.gender)}
                   </span>
                 )}
 

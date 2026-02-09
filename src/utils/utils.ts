@@ -10,3 +10,17 @@ export const genderBadgeClass = (gender: string) => {
       return "badge-ghost";
   }
 };
+
+export const genderLabel = (gender: string) => {
+  switch (gender) {
+    case "male":
+      return "♂ Male";
+    case "female":
+      return "♀ Female";
+    case "lgbtq":
+      return "⚧ LGBTQ";
+    default:
+      return gender;
+  }
+};
+

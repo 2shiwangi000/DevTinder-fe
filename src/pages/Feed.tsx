@@ -60,7 +60,7 @@ const Feed = () => {
   }
 
   return (
-    <div className="flex justify-center mt-10">
+    <div className="flex justify-center mt-2 mb-2">
       {currentFeed[index] && (
         <FeedCard
           key={currentFeed[index]._id}

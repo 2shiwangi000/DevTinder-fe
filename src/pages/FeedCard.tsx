@@ -17,57 +17,84 @@ const FeedCard = ({ key, user, onAccept, onIgnore }: PropsCard) => {
   return (
     <div
       key={key}
-      className={`card w-90 bg-base-100 shadow-xl transition-all duration-300
-        ${
-          action === "accept"
-            ? "opacity-0 scale-105 -translate-y-10"
-            : action === "ignore"
-              ? "opacity-0 rotate-6 translate-y-10"
-              : ""
-        }
-      `}
+      className={`card w-96 bg-base-100 shadow-2xl transition-all duration-300
+    ${
+      action === "accept"
+        ? "opacity-0 scale-105 -translate-y-10"
+        : action === "ignore"
+          ? "opacity-0 rotate-6 translate-y-10"
+          : "hover:scale-[1.02]"
+    }
+  `}
     >
       {/* Image */}
-      <figure className="px-6 pt-6">
+      <figure className="relative">
         <img
           src={user.photo}
           alt={`${user.firstName} ${user.lastName}`}
-          className="rounded-xl h-60 w-full object-cover"
+          className="h-72 w-full object-cover"
         />
+
+        {/* Gender badge (top-right) */}
+        {user.gender && (
+          <span
+            className={`absolute top-3 right-3 badge badge-sm capitalize
+          ${
+            user.gender === "male"
+              ? "badge-info"
+              : user.gender === "female"
+                ? "badge-secondary"
+                : "badge-accent"
+          }
+        `}
+          >
+            {user.gender}
+          </span>
+        )}
       </figure>
 
       <div className="card-body text-center">
-        {/* Name */}
-        <h2 className="card-title justify-center">
+        {/* Name + age */}
+        <h2 className="text-2xl font-bold">
           {user.firstName} {user.lastName}
+          {user.age && (
+            <span className="text-base font-normal opacity-60">
+              {" "}
+              · {user.age}
+            </span>
+          )}
         </h2>
 
-        {/* Joined date */}
-        <p className="text-sm opacity-60">
-          Joined {new Date(user.createdAt).toLocaleDateString()}
-        </p>
+        {/* About (short preview) */}
+        {user.about && (
+          <p className="text-sm opacity-70 line-clamp-2 mt-1">{user.about}</p>
+        )}
 
         {/* Hobbies */}
-        {user.hobbies?.length > 0 ? (
-          <div className="flex flex-wrap gap-2 justify-center mt-3">
-            {user.hobbies.map((hobby) => (
-              <span key={hobby} className="badge badge-outline">
+        {user.hobbies?.length > 0 && (
+          <div className="flex flex-wrap gap-2 justify-center mt-4">
+            {user.hobbies.slice(0, 3).map((hobby) => (
+              <span key={hobby} className="badge badge-outline badge-sm">
                 {hobby}
               </span>
             ))}
           </div>
-        ) : (
-          <p className="text-sm opacity-50 mt-3">No hobbies added yet</p>
         )}
 
         {/* Actions */}
-        <div className="card-actions justify-between mt-6">
-          <button className="btn btn-outline btn-error" onClick={handleIgnore}>
-            ❌ Ignore
+        <div className="flex justify-between items-center gap-4 mt-8">
+          <button
+            onClick={handleIgnore}
+            className="btn btn-outline btn-error flex-1 hover:scale-105 transition"
+          >
+            ❌ Skip
           </button>
 
-          <button className="btn btn-primary" onClick={handleAccept}>
-            ✅ Interested
+          <button
+            onClick={handleAccept}
+            className="btn btn-primary flex-1 hover:scale-105 transition"
+          >
+            🤝 Connect
           </button>
         </div>
       </div>

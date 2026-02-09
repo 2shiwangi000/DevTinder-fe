@@ -7,6 +7,9 @@ export interface FeedUser {
   photo: string;
   createdAt: string;
   updatedAt: string;
+  about: string;
+  gender: string;
+  age: number;
 }
 
 export interface FeedResponse {
