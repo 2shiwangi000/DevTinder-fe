@@ -1,12 +1,17 @@
 import React, { useEffect } from "react";
-import { getAllConnectionRequest } from "../service/user";
+import {
+  getAllConnectionRequest,
+  reviewConnectionRequest,
+} from "../service/user";
 import { useAppDispatch, useAppSelector } from "../utils/hooks";
 import { appendReq } from "../store/slices/requestSlice";
 import type { User } from "../types/user";
+import { useNotification } from "../context/NotificationContext";
 
 const Requests = () => {
   const dispatch = useAppDispatch();
   const { currentReq } = useAppSelector((state) => state.request);
+  const { showAlert } = useNotification();
 
   const getAllRequests = async () => {
     await getAllConnectionRequest().then((res) => {
@@ -16,13 +21,18 @@ const Requests = () => {
     });
   };
 
-  const handleAccept = (id: string) => {
-    // 🔜 API call: accept request
-    // dispatch(removeReqById(id));
-  };
-
-  const handleReject = (id: string) => {
-    // 🔜 API call: reject request
+  const handleAction = (id: string, status: string) => {
+    reviewConnectionRequest({
+      userid: id,
+      status: status,
+    }).then((res) => {
+      if (res) {
+        showAlert(res?.message, status === "rejected" ? "info" : "success");
+        getAllRequests();
+      } else {
+        showAlert(res?.message || "something went wrong", "error");
+      }
+    });
     // dispatch(removeReqById(id));
   };
 
@@ -97,14 +107,14 @@ const Requests = () => {
               <div className="flex gap-2">
                 <button
                   className="btn btn-sm btn-outline btn-error"
-                  onClick={() => handleReject(user._id)}
+                  onClick={() => handleAction(user._id, "rejected")}
                 >
                   Reject
                 </button>
 
                 <button
                   className="btn btn-sm btn-primary"
-                  onClick={() => handleAccept(user._id)}
+                  onClick={() => handleAction(user._id, "accepted")}
                 >
                   Accept
                 </button>

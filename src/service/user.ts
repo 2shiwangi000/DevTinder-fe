@@ -71,3 +71,23 @@ export async function getAllConnectionRequest() {
     return err?.response?.data;
   }
 }
+
+export async function reviewConnectionRequest(query: {
+  userid: string;
+  status: string;
+}) {
+  try {
+    const res = await axios.post(
+      BASE_URL + `request/review/${query.status}/${query.userid}`,
+      {},
+      {
+        withCredentials: true,
+      },
+    );
+
+    return res?.data;
+  } catch (err: any) {
+    console.log(err);
+    return err?.response?.data;
+  }
+}
