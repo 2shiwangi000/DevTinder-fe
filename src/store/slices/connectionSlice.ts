@@ -6,22 +6,22 @@ interface ConnectionState {
 }
 
 const initialState: ConnectionState = {
-  currentConnections: null,
+  currentConnections: [],
 };
 
-const userSlice = createSlice({
+const connectionSlice = createSlice({
   name: "connections",
   initialState,
   reducers: {
     addConnections: (state, action: PayloadAction<User[]>) => {
       state.currentConnections = action.payload;
-      // state.currentConnections.length = action.payload.length;
+      state.currentConnections.length = action.payload.length;
     },
     removeConnections: (state) => {
-      state.currentConnections = null;
+      state.currentConnections = [];
     },
   },
 });
 
-export const { addConnections, removeConnections } = userSlice.actions;
-export default userSlice.reducer;
+export const { addConnections, removeConnections } = connectionSlice.actions;
+export default connectionSlice.reducer;
