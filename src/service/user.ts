@@ -33,11 +33,38 @@ export async function sendConnectionReq(query: {
 }) {
   try {
     const res = await axios.post(
-      BASE_URL + `request/send/${query.status}/${query.userid}`,{},
+      BASE_URL + `request/send/${query.status}/${query.userid}`,
+      {},
       {
         withCredentials: true,
       },
     );
+    return res?.data;
+  } catch (err: any) {
+    console.log(err);
+    return err?.response?.data;
+  }
+}
+
+export async function getAllConnections() {
+  try {
+    const res = await axios.get(BASE_URL + "user/connection", {
+      withCredentials: true,
+    });
+
+    return res?.data;
+  } catch (err: any) {
+    console.log(err);
+    return err?.response?.data;
+  }
+}
+
+export async function getAllConnectionRequest() {
+  try {
+    const res = await axios.get(BASE_URL + "user/requests", {
+      withCredentials: true,
+    });
+
     return res?.data;
   } catch (err: any) {
     console.log(err);

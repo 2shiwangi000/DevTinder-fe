@@ -67,9 +67,26 @@ const Navbar = () => {
                   <a className="hover:bg-slate-700 rounded-lg">👤 Profile</a>
                 </li>
               </Link>
+
+              <div className="divider my-1" />
               <li>
-                <a className="hover:bg-slate-700 rounded-lg">⚙️ Settings</a>
+                <Link to="/connections">🤝 Connections</Link>
               </li>
+              <Link to="/requests">
+                <li className="flex flex-row gap-0.5">
+                  <span>💬 Requests</span>
+                  <span className="badge badge-info badge-sm rounded-4xl">
+                    3
+                  </span>
+                </li>
+              </Link>
+
+              <div className="divider my-1" />
+              <Link to="/settings">
+                <li>
+                  <a className="hover:bg-slate-700 rounded-lg">⚙️ Settings</a>
+                </li>
+              </Link>
               <li>
                 <a
                   className="hover:bg-red-500/20 text-red-400 rounded-lg"
