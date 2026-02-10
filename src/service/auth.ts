@@ -30,7 +30,19 @@ export async function logout() {
       },
     );
     return res?.data;
-  } catch (err:any) {
+  } catch (err: any) {
+    console.log(err);
+    return err?.response?.data;
+  }
+}
+
+export async function signup(payload: object) {
+  try {
+    const res = await axios.post(BASE_URL + "signup", payload, {
+      withCredentials: true,
+    });
+    return res?.data;
+  } catch (err: any) {
     console.log(err);
     return err?.response?.data;
   }
