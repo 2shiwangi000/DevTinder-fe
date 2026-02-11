@@ -4,7 +4,7 @@ import {
   reviewConnectionRequest,
 } from "../service/user";
 import { useAppDispatch, useAppSelector } from "../utils/hooks";
-import { appendReq } from "../store/slices/requestSlice";
+import { appendReq, removeReq } from "../store/slices/requestSlice";
 import type { User } from "../types/user";
 import { useNotification } from "../context/NotificationContext";
 import { genderBadgeClass } from "../utils/utils";
@@ -39,6 +39,9 @@ const Requests = () => {
 
   useEffect(() => {
     getAllRequests();
+    return () => {
+      dispatch(removeReq());
+    };
   }, []);
 
   if (!currentReq.length) {

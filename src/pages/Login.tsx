@@ -1,3 +1,4 @@
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import React, { useState } from "react";
 import { validateEmail, validatePassword } from "../utils/validators";
 import { login } from "../service/auth";
@@ -11,6 +12,7 @@ const Login = ({ onSwitch }: { onSwitch: () => void }) => {
   const { showAlert } = useNotification();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [errors, setErrors] = useState({
     email: "",
@@ -35,6 +37,7 @@ const Login = ({ onSwitch }: { onSwitch: () => void }) => {
         showAlert(res?.message, "success");
         dispatch(addUser(res?.data));
         navigate("/");
+        setShowPassword(false);
       } else {
         showAlert(res?.message || "Invalid credentials", "error");
       }
@@ -56,14 +59,21 @@ const Login = ({ onSwitch }: { onSwitch: () => void }) => {
           <p className="text-error text-xs mt-1 ml-2">{errors.email}</p>
         )}
       </div>
-      <div>
+      <div className="relative">
         <input
           className="input input-bordered rounded-full"
-          type="password"
+          type={showPassword ? "text" : "password"}
           placeholder="Password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <button
+          type="button"
+          onClick={() => setShowPassword((prev) => !prev)}
+          className={`absolute right-6 ${errors.password ? "top-1/3" : "top-1/2"} -translate-y-1/2 text-gray-400 hover:text-gray-200 transition`}
+        >
+          {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+        </button>
         {errors.password && (
           <p className="text-error text-xs mt-1 ml-2">{errors.password}</p>
         )}

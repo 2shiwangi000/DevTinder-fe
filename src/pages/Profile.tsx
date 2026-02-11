@@ -137,7 +137,7 @@ const Profile = () => {
 
             {/* Hobbies – Chip Input */}
             <div>
-              <label className="text-sm font-medium">Hobbies</label>
+              <label className="text-sm font-medium">Interests</label>
 
               {/* Chips */}
               <div className="flex flex-wrap gap-2 mt-2">
@@ -162,7 +162,7 @@ const Profile = () => {
               {/* Input */}
               <input
                 className="input input-bordered w-full mt-2"
-                placeholder="Type a hobby and press Enter"
+                placeholder="Type your interest and press Enter"
                 value={hobbyInput}
                 onChange={(e) => setHobbyInput(e.target.value)}
                 onKeyDown={(e) => {

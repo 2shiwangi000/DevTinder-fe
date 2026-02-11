@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { getAllConnections } from "../service/user";
-import { addConnections } from "../store/slices/connectionSlice";
+import {
+  addConnections,
+  removeConnections,
+} from "../store/slices/connectionSlice";
 import { useAppDispatch, useAppSelector } from "../utils/hooks";
 import type { User } from "../types/user";
 import { genderBadgeClass } from "../utils/utils";
@@ -20,6 +23,9 @@ const Connections = () => {
 
   useEffect(() => {
     getAllConnection();
+    return () => {
+      dispatch(removeConnections());
+    };
   }, []);
 
   if (!currentConnections?.length) {

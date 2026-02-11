@@ -1,3 +1,4 @@
+import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login, signup } from "../service/auth";
@@ -18,6 +19,7 @@ const CreateProfile = ({ onSwitch }: { onSwitch: () => void }) => {
   const [autoLogin, setAutoLogin] = useState(true);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -60,6 +62,14 @@ const CreateProfile = ({ onSwitch }: { onSwitch: () => void }) => {
             onSwitch();
           }
           setLoading(false);
+          setFormData({
+            firstName: "",
+            lastName: "",
+            emailId: "",
+            password: "",
+          });
+          setAutoLogin(true);
+          setShowPassword(false);
         }, 1000);
       } else {
         setLoading(false);
@@ -110,16 +120,23 @@ const CreateProfile = ({ onSwitch }: { onSwitch: () => void }) => {
         )}
       </div>
 
-      <div>
+      <div className="relative">
         {" "}
         <input
           name="password"
-          type="password"
+          type={showPassword ? "text" : "password"}
           className="input input-bordered rounded-full"
           placeholder="Password"
           value={formData.password}
           onChange={handleChange}
         />
+        <button
+          type="button"
+          onClick={() => setShowPassword((prev) => !prev)}
+          className={`absolute right-6 ${errors.password ? "top-1/3" : "top-1/2"} -translate-y-1/2 text-gray-400 hover:text-gray-200 transition`}
+        >
+          {showPassword ? <FiEyeOff size={18} /> : <FiEye size={18} />}
+        </button>
         {errors.password && (
           <p className="text-error text-xs ml-2">{errors.password}</p>
         )}

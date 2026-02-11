@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../utils/hooks";
 import { getUsersFeed } from "../service/feed";
-import { addFeed } from "../store/slices/feedSlice";
+import { addFeed, removeFeed } from "../store/slices/feedSlice";
 import { useNotification } from "../context/NotificationContext";
 import FeedCard from "./FeedCard";
 import { sendConnectionReq } from "../service/user";
@@ -53,6 +53,12 @@ const Feed = () => {
 
     hasFetchedRef.current = true;
     fetchFeed(1);
+
+    return () => {
+      // cleanup logic here
+      hasFetchedRef.current = false; // reset ref if needed
+      dispatch(removeFeed());
+    };
   }, []);
 
   if (!currentFeed[index] && !hasMore) {
