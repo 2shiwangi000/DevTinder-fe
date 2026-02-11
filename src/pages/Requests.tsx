@@ -16,8 +16,8 @@ const Requests = () => {
 
   const getAllRequests = async () => {
     await getAllConnectionRequest().then((res) => {
-      if (res) {
-        dispatch(appendReq(res));
+      if (res?.data) {
+        dispatch(appendReq(res?.data));
       }
     });
   };

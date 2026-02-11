@@ -5,12 +5,16 @@ import { removeUser } from "../../store/slices/userSlice";
 import { useDispatch } from "react-redux";
 import { removeFeed } from "../../store/slices/feedSlice";
 import { removeConnections } from "../../store/slices/connectionSlice";
-import { removeReq } from "../../store/slices/requestSlice";
+import { getRequestCount, removeReq } from "../../store/slices/requestSlice";
+import { useState } from "react";
+import { getAllConnectionRequestCount } from "../../service/user";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useAppSelector((store) => store.user.currentUser);
+  const { currentReqCount } = useAppSelector((store) => store.request);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleClick = (e: any) => {
     e.stopPropagation();
@@ -24,12 +28,25 @@ const Navbar = () => {
       }
     });
   };
+  const handleDropdownToggle = async () => {
+    setIsOpen((prev) => !prev);
+    if (!isOpen) {
+      await getAllConnectionRequestCount().then((res) => {
+        if (res?.code === 200) {
+          dispatch(getRequestCount(res?.count));
+        }
+      });
+    }
+  };
 
   return (
     <div className="navbar px-6 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white shadow-lg">
       {/* Logo */}
       <div className="flex-1">
-        <Link className="text-xl font-bold tracking-wide flex items-center gap-2 cursor-pointer hover:text-pink-400 transition" to="/">
+        <Link
+          className="text-xl font-bold tracking-wide flex items-center gap-2 cursor-pointer hover:text-pink-400 transition"
+          to="/"
+        >
           <span className="text-2xl">👩‍💻</span>
           Dev<span className="text-pink-400">Tinder</span>
         </Link>
@@ -45,7 +62,7 @@ const Navbar = () => {
           </p>
 
           {/* Avatar */}
-          <div className="dropdown dropdown-end">
+          <div className="dropdown dropdown-end" onClick={handleDropdownToggle}>
             <div
               tabIndex={0}
               role="button"
@@ -79,10 +96,10 @@ const Navbar = () => {
                 <Link to="/connections">🤝 Connections</Link>
               </li>
               <Link to="/requests">
-                <li className="flex flex-row gap-0.5">
+                <li className="flex flex-row gap-0.5 place-items-center">
                   <span>💬 Requests</span>
                   <span className="badge badge-info badge-sm rounded-4xl">
-                    3
+                    {currentReqCount}
                   </span>
                 </li>
               </Link>

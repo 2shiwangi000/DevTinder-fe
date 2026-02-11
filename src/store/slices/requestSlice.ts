@@ -4,10 +4,12 @@ import type { ConnectionRequest } from "../../types/connectionRequest";
 
 interface reqState {
   currentReq: User[];
+  currentReqCount: number;
 }
 
 const initialState: reqState = {
   currentReq: [],
+  currentReqCount: 0,
 };
 
 const reqSlice = createSlice({
@@ -21,8 +23,11 @@ const reqSlice = createSlice({
     removeReq: (state) => {
       state.currentReq = [];
     },
+    getRequestCount: (state, action) => {
+      state.currentReqCount = action.payload;
+    },
   },
 });
 
-export const { appendReq, removeReq } = reqSlice.actions;
+export const { appendReq, removeReq, getRequestCount } = reqSlice.actions;
 export default reqSlice.reducer;

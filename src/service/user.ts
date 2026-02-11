@@ -91,3 +91,16 @@ export async function reviewConnectionRequest(query: {
     return err?.response?.data;
   }
 }
+
+export async function getAllConnectionRequestCount() {
+  try {
+    const res = await axios.get(BASE_URL + "user/requests/count", {
+      withCredentials: true,
+    });
+
+    return res?.data;
+  } catch (err: any) {
+    console.log(err);
+    return err?.response?.data;
+  }
+}
