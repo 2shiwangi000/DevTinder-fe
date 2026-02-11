@@ -75,10 +75,12 @@ const Profile = () => {
 
               <p className="text-xs text-gray-500 mt-0.5">
                 Member since{" "}
-                {new Date(user?.createdAt).toLocaleDateString("en-US", {
-                  month: "short",
-                  year: "numeric",
-                })}
+                {user?.createdAt
+                  ? new Date(user.createdAt).toLocaleDateString("en-US", {
+                      month: "short",
+                      year: "numeric",
+                    })
+                  : "—"}
               </p>
 
               {/* Live chips */}
@@ -88,7 +90,9 @@ const Profile = () => {
                 )}
 
                 {formData.gender && (
-                  <span className={`badge ${genderBadgeClass(formData?.gender)} capitalize`}>
+                  <span
+                    className={`badge ${genderBadgeClass(formData?.gender)} capitalize`}
+                  >
                     {genderLabel(formData?.gender)}
                   </span>
                 )}

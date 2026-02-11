@@ -1,14 +1,11 @@
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./routes/ProtectedRoute";
-import Login from "./pages/Login";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
 import MainLayout from "./layouts/MainLayout";
-import React from "react";
 import Settings from "./pages/settings";
 import Connections from "./pages/Connections";
 import Requests from "./pages/Requests";
-import CreateProfile from "./pages/createProfile";
 import AuthFlipCard from "./pages/AuthFlipCard";
 
 function App() {

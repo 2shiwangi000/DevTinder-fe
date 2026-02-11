@@ -9,7 +9,7 @@ import { sendConnectionReq } from "../service/user";
 const Feed = () => {
   const dispatch = useAppDispatch();
   const { showAlert } = useNotification();
-  const { currentFeed, total, page, limit, hasMore } = useAppSelector(
+  const { currentFeed, page, limit, hasMore } = useAppSelector(
     (store) => store.feed,
   );
   const [index, setIndex] = React.useState(0);

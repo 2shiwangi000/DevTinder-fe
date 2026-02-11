@@ -1,6 +1,6 @@
 import { FiEye, FiEyeOff } from "react-icons/fi";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { login, signup } from "../service/auth";
 import { useNotification } from "../context/NotificationContext";
 import { addUser } from "../store/slices/userSlice";

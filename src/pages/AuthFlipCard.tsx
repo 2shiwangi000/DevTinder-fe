@@ -1,7 +1,7 @@
 import { useState } from "react";
 import clsx from "clsx";
 import Login from "./Login";
-import CreateProfile from "./createProfile";
+import CreateProfile from "./CreateProfile";
 
 const AuthFlipCard = () => {
   const [mode, setMode] = useState<"login" | "signup">("login");
