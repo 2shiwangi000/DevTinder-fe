@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
@@ -17,11 +17,18 @@ function App() {
     <Routes>
       {/* Public routes */}
       <Route element={<MainLayout authenticated={false} />}>
-        <Route path="/login" element={<div
-  className="min-h-screen flex items-center justify-center
+        <Route
+          path="/login"
+          element={
+            <div
+              className="min-h-screen flex items-center justify-center
   bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900"
-><AuthFlipCard /></div>} />
-         {/* <Route path="/create-account" element={<CreateProfile/>} /> */}
+            >
+              <AuthFlipCard />
+            </div>
+          }
+        />
+        <Route path="/" element={<Navigate to="/login" replace />} />
       </Route>
 
       {/* Protected routes */}
@@ -32,7 +39,7 @@ function App() {
           </ProtectedRoute>
         }
       >
-        <Route path="/" element={<Feed />} />
+        <Route path="/feed" element={<Feed />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/connections" element={<Connections />} />
