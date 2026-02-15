@@ -36,7 +36,7 @@ const Login = ({ onSwitch }: { onSwitch: () => void }) => {
       if (res?.code === 200) {
         showAlert(res?.message, "success");
         dispatch(addUser(res?.data));
-        navigate("/");
+        navigate("/feed");
         setShowPassword(false);
       } else {
         showAlert(res?.message || "Invalid credentials", "error");
