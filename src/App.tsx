@@ -33,7 +33,7 @@ function App() {
 
       {/* Protected routes */}
       <Route
-        element={
+        element={ 
           <ProtectedRoute>
             <MainLayout authenticated />
           </ProtectedRoute>
