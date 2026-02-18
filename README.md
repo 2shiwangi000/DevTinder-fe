@@ -42,7 +42,15 @@ proxy_pass http://localhost:4000/;
 
 - sudo systemctl start nginx ------------------------------------> restart nginx
 - modify base-url in FE
-- 
+
+# ADDING CUSTOM DOMAIN
+- PURCHASE DOMAIN FROM GODADDY
+- cloudflare signup
+- change DNS servers on go-daddy and point to cloudflare
+- in A record add IP and domain name
+- enable ssl/tsl in cloudflare
+
+
 
 frontend server - http://16.16.206.102/login
 backend server - http://16.16.206.102:4000
