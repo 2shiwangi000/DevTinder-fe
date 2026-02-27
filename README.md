@@ -42,15 +42,28 @@ proxy_pass http://localhost:4000/;
 
 - sudo systemctl start nginx ------------------------------------> restart nginx
 - modify base-url in FE
+- sudo nano .env
 
 # ADDING CUSTOM DOMAIN
+
 - PURCHASE DOMAIN FROM GODADDY
 - cloudflare signup
 - change DNS servers on go-daddy and point to cloudflare
 - in A record add IP and domain name
 - enable ssl/tsl in cloudflare
 
+# EMAILS via SES
 
+- create a iam user
+- give access to amazonsesfullaccess
+- amazon ses-create identity
+- verify domain name
+- verify email address
+- code temp from ses doc
+- setup ses client
+- access cred should be created in IAM
+- add cred to env file
+-
 
 frontend server - http://16.16.206.102/login
-backend server - http://16.16.206.102:4000
+backend server - http://16.16.206.102:4000   
