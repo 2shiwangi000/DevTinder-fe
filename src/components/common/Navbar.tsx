@@ -110,6 +110,11 @@ const Navbar = () => {
                   <a className="hover:bg-slate-700 rounded-lg">⚙️ Settings</a>
                 </li>
               </Link>
+              <Link to="/premium">
+                <li>
+                  <a className="hover:bg-slate-700 rounded-lg">👑 Premium</a>
+                </li>
+              </Link>
               <li>
                 <a
                   className="hover:bg-red-500/20 text-red-400 rounded-lg"

@@ -63,7 +63,11 @@ proxy_pass http://localhost:4000/;
 - setup ses client
 - access cred should be created in IAM
 - add cred to env file
--
+
+# Razorpay payment gateway Integration
+
+- signup razorpay and complete KYC
+- 
 
 frontend server - http://16.16.206.102/login
 backend server - http://16.16.206.102:4000   

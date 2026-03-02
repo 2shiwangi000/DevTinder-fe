@@ -7,6 +7,7 @@ import Settings from "./pages/settings";
 import Connections from "./pages/Connections";
 import Requests from "./pages/Requests";
 import AuthFlipCard from "./pages/AuthFlipCard";
+import Premium from "./components/common/Premium";
 
 function App() {
   //  React.useEffect(() => {
@@ -44,6 +45,7 @@ function App() {
         <Route path="/settings" element={<Settings />} />
         <Route path="/connections" element={<Connections />} />
         <Route path="/requests" element={<Requests />} />
+        <Route path="/premium" element={<Premium />} />
       </Route>
     </Routes>   
   );
