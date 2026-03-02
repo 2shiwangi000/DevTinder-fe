@@ -45,7 +45,7 @@ const Navbar = () => {
       <div className="flex-1">
         <Link
           className="text-xl font-bold tracking-wide flex items-center gap-2 cursor-pointer hover:text-pink-400 transition"
-          to="/"
+          to="/feed"
         >
           <span className="text-2xl">👩‍💻</span>
           Dev<span className="text-pink-400">Tinder</span>
@@ -80,48 +80,62 @@ const Navbar = () => {
             </div>
 
             {/* Dropdown */}
-            <ul
-              tabIndex={-1}
-              className="menu menu-sm dropdown-content mt-3 w-52 rounded-xl bg-slate-800 text-gray-200 shadow-xl border border-slate-700"
-            >
-              <Link to="/profile">
-                {" "}
-                <li>
-                  <a className="hover:bg-slate-700 rounded-lg">👤 Profile</a>
-                </li>
-              </Link>
-
-              <div className="divider my-1" />
+            <ul className="menu menu-sm dropdown-content mt-3 w-56 rounded-xl bg-slate-800 text-gray-200 shadow-xl border border-slate-700">
               <li>
-                <Link to="/connections">🤝 Connections</Link>
+                <Link to="/profile" className="hover:bg-slate-700 rounded-lg">
+                  👤 Profile
+                </Link>
               </li>
-              <Link to="/requests">
-                <li className="flex flex-row gap-0.5 place-items-center">
-                  <span>💬 Requests</span>
-                  <span className="badge badge-info badge-sm rounded-4xl">
-                    {currentReqCount}
-                  </span>
-                </li>
-              </Link>
 
               <div className="divider my-1" />
-              <Link to="/settings">
-                <li>
-                  <a className="hover:bg-slate-700 rounded-lg">⚙️ Settings</a>
-                </li>
-              </Link>
-              <Link to="/premium">
-                <li>
-                  <a className="hover:bg-slate-700 rounded-lg">👑 Premium</a>
-                </li>
-              </Link>
+
               <li>
-                <a
-                  className="hover:bg-red-500/20 text-red-400 rounded-lg"
+                <Link
+                  to="/connections"
+                  className="hover:bg-slate-700 rounded-lg"
+                >
+                  🤝 Connections
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/requests"
+                  className="flex justify-between items-center hover:bg-slate-700 rounded-lg"
+                >
+                  <span>💬 Requests</span>
+                  {currentReqCount > 0 && (
+                    <span className="badge badge-info badge-sm">
+                      {currentReqCount}
+                    </span>
+                  )}
+                </Link>
+              </li>
+
+              <div className="divider my-1" />
+
+              <li>
+                <Link to="/settings" className="hover:bg-slate-700 rounded-lg">
+                  ⚙️ Settings
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  to="/premium"
+                  className="hover:bg-yellow-500/10 text-yellow-400 rounded-lg transition"
+                >
+                  👑 Premium
+                </Link>
+              </li>
+
+              <li>
+                <button
                   onClick={handleClick}
+                  className="hover:bg-red-500/20 text-red-400 rounded-lg text-left"
                 >
                   🚪 Logout
-                </a>
+                </button>
               </li>
             </ul>
           </div>
