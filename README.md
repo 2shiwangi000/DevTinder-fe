@@ -67,7 +67,10 @@ proxy_pass http://localhost:4000/;
 # Razorpay payment gateway Integration
 
 - signup razorpay and complete KYC
-- 
+- added kay/secret in env
+- created api for create order for backend
+- initialized razorpay in utils
+
 
 frontend server - http://16.16.206.102/login
 backend server - http://16.16.206.102:4000   
