@@ -70,6 +70,7 @@ proxy_pass http://localhost:4000/;
 - added kay/secret in env
 - created api for create order for backend
 - initialized razorpay in utils
+- razorpay webhook after payment 
 
 
 frontend server - http://16.16.206.102/login
