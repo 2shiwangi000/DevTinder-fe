@@ -7,6 +7,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../utils/hooks";
 import type { User } from "../types/user";
 import { genderBadgeClass } from "../utils/utils";
+import Avatar from "../components/common/Avatar";
 
 const Connections = () => {
   const dispatch = useAppDispatch();
@@ -63,15 +64,11 @@ const Connections = () => {
               >
                 {/* Avatar */}
                 <div className="avatar mt-1">
-                  <div className="w-12 rounded-full">
-                    <img
-                      src={
-                        user.photo ||
-                        "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                      }
-                      alt={user.firstName}
-                    />
-                  </div>
+                  <Avatar
+                    user={user}
+                    size="w-12 rounded-full"
+                    avatarSize="font-semibold"
+                  />
                 </div>
 
                 {/* Info */}

@@ -8,6 +8,7 @@ import { appendReq, removeReq } from "../store/slices/requestSlice";
 import type { User } from "../types/user";
 import { useNotification } from "../context/NotificationContext";
 import { genderBadgeClass } from "../utils/utils";
+import Avatar from "../components/common/Avatar";
 
 const Requests = () => {
   const dispatch = useAppDispatch();
@@ -67,9 +68,11 @@ const Requests = () => {
             >
               {/* Avatar */}
               <div className="avatar">
-                <div className="w-14 rounded-full">
-                  <img src={user.photo} alt={user.firstName} />
-                </div>
+                <Avatar
+                  user={user}
+                  size="w-14 rounded-full"
+                  avatarSize="font-semibold"
+                />
               </div>
 
               {/* Info */}
