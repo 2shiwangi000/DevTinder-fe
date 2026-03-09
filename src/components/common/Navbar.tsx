@@ -8,6 +8,7 @@ import { removeConnections } from "../../store/slices/connectionSlice";
 import { getRequestCount, removeReq } from "../../store/slices/requestSlice";
 import { useState } from "react";
 import { getAllConnectionRequestCount } from "../../service/user";
+import Avatar from "./Avatar";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -68,7 +69,8 @@ const Navbar = () => {
               role="button"
               className="btn btn-circle avatar ring ring-pink-400 ring-offset-base-100 ring-offset-2 hover:scale-105 transition"
             >
-              <div className="w-10 rounded-full">
+              <Avatar user={user} size="w-10 h-full rounded-full" avatarSize="font-semibold"/>
+              {/* <div className="w-10 rounded-full">
                 <img
                   alt="User avatar"
                   src={
@@ -76,7 +78,7 @@ const Navbar = () => {
                     "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                   }
                 />
-              </div>
+              </div> */}
             </div>
 
             {/* Dropdown */}

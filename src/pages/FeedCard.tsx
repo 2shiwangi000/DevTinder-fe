@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { PropsCard } from "../types/feed";
+import Avatar from "../components/common/Avatar";
 
 const FeedCard = ({ key, user, onAccept, onIgnore }: PropsCard) => {
   const [action, setAction] = useState<null | "accept" | "ignore">(null);
@@ -29,11 +30,12 @@ const FeedCard = ({ key, user, onAccept, onIgnore }: PropsCard) => {
     >
       {/* Image */}
       <figure className="relative">
-        <img
+        <Avatar user={user} size="w-full h-72 object-cover" avatarSize="font-semibold text-6xl"/>
+        {/* <img
           src={user.photo}
           alt={`${user.firstName} ${user.lastName}`}
           className="h-72 w-full object-cover"
-        />
+        /> */}
 
         {/* Gender badge (top-right) */}
         {user.gender && (

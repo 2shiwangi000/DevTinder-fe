@@ -12,3 +12,9 @@ export interface User {
   updatedAt?: string;
   length?: number;
 }
+
+export type AvatarProps = {
+  user: User;
+  size?: string;
+  avatarSize?: string;
+};
