@@ -8,8 +8,11 @@ import { useAppDispatch, useAppSelector } from "../utils/hooks";
 import type { User } from "../types/user";
 import { genderBadgeClass } from "../utils/utils";
 import Avatar from "../components/common/Avatar";
+import Chat from "./Chat";
+import { useNavigate } from "react-router-dom";
 
 const Connections = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { currentConnections } = useAppSelector((state) => state.connections);
   const [activeUser, setActiveUser] = useState<User | null>(null);
@@ -28,6 +31,14 @@ const Connections = () => {
       dispatch(removeConnections());
     };
   }, []);
+
+  useEffect(() => {
+    if (activeUser?._id) {
+      navigate(`/connections/${activeUser._id}`);
+    } else {
+      navigate("/connections");
+    }
+  }, [activeUser]);
 
   if (!currentConnections?.length) {
     return (
@@ -116,10 +127,14 @@ const Connections = () => {
       {/* RIGHT: Chat window (placeholder) */}
       <section className="flex-1 flex items-center justify-center text-gray-400">
         {activeUser ? (
-          <span>
-            Chat with{" "}
-            <span className="font-semibold">{activeUser.firstName}</span>
-          </span>
+          <>
+            {" "}
+            {/* <span>
+              Chat with{" "}
+              <span className="font-semibold">{activeUser.firstName}</span>
+            </span> */}
+            <Chat />
+          </>
         ) : (
           <span>Select a connection to start chatting 💬</span>
         )}

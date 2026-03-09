@@ -73,5 +73,13 @@ proxy_pass http://localhost:4000/;
 - razorpay webhook after payment 
 
 
+# WebSocket implementation for real time chat
+
+- 
+- 
+- 
+
+
+
 frontend server - http://16.16.206.102/login
 backend server - http://16.16.206.102:4000   

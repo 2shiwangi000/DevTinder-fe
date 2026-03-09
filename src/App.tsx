@@ -34,7 +34,7 @@ function App() {
 
       {/* Protected routes */}
       <Route
-        element={ 
+        element={
           <ProtectedRoute>
             <MainLayout authenticated />
           </ProtectedRoute>
@@ -43,11 +43,11 @@ function App() {
         <Route path="/feed" element={<Feed />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/settings" element={<Settings />} />
-        <Route path="/connections" element={<Connections />} />
+        <Route path="/connections/:id?" element={<Connections />} />
         <Route path="/requests" element={<Requests />} />
         <Route path="/premium" element={<Premium />} />
       </Route>
-    </Routes>   
+    </Routes>
   );
 }
 
