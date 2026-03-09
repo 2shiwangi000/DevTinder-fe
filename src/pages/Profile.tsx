@@ -42,7 +42,6 @@ const Profile = () => {
     };
 
     const res = await updateProfile(payload);
-    console.log(res);
     if (res?.code === 200) {
       dispatch(addUser(res.data));
       showAlert(res?.message || "Profile updated", "success");
