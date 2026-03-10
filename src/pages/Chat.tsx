@@ -4,41 +4,41 @@ import { useParams } from "react-router-dom";
 import { useAppSelector } from "../utils/hooks";
 import Avatar from "../components/common/Avatar";
 import type { User } from "../types/user";
+import type { chat } from "../types/chat";
 
 const Chat = ({ activeUser }: { activeUser: User }) => {
   const [message, setMessage] = useState("");
+  const [messages, setMessages] = useState<chat[]>([]);
+  console.log(messages);
   const { id } = useParams();
   const user = useAppSelector((store) => store.user.currentUser);
   const userID = user?._id;
   const socket = createSocketConnection();
 
-  const messages = [
-    { id: 1, text: "Hey! How are you?", sender: "them" },
-    { id: 2, text: "I'm good! What about you?", sender: "me" },
-    { id: 3, text: "Doing great 😊", sender: "them" },
-  ];
-
   const sendMessage = () => {
     socket.emit("sendMessage", {
       firstName: user?.firstName,
-      userID,
+      userId: userID,
       id,
       message: message,
     });
+    setMessage("");
   };
 
   useEffect(() => {
     if (!userID) return;
+    console.log("joining chat ...");
     //as soon as the page loads,socket connection is made and joinchat event is emitted
-    socket.emit("joinChat", { firstName: user?.firstName, userID, id });
+    socket.emit("joinChat", { firstName: user?.firstName, userId: userID, id });
 
-    socket.on("messageReceived", ({ firstName, message }) => {
-      console.log(firstName + ":" + message);
+    socket.on("messageReceived", ({ id, firstName, message }) => {
+      console.log(message + "by -" + firstName);
+      setMessages((messages) => [...messages, { id, firstName, message }]);
     });
 
-    // return () => {
-    //   socket.disconnect();
-    // };
+    return () => {
+      socket.disconnect();
+    };
   }, [userID, id]);
 
   return (
@@ -59,10 +59,10 @@ const Chat = ({ activeUser }: { activeUser: User }) => {
           <div
             key={msg.id}
             className={`chat ${
-              msg.sender === "me" ? "chat-end" : "chat-start"
+              msg.firstName === activeUser.firstName ? "chat-end" : "chat-start"
             }`}
           >
-            <div className="chat-bubble">{msg.text}</div>
+            <div className="chat-bubble">{msg.message}</div>
           </div>
         ))}
       </div>
