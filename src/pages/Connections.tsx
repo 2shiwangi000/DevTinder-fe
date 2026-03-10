@@ -133,7 +133,7 @@ const Connections = () => {
               Chat with{" "}
               <span className="font-semibold">{activeUser.firstName}</span>
             </span> */}
-            <Chat />
+            <Chat activeUser={activeUser}/>
           </>
         ) : (
           <span>Select a connection to start chatting 💬</span>
