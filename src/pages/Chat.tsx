@@ -5,11 +5,12 @@ import { useAppSelector } from "../utils/hooks";
 import Avatar from "../components/common/Avatar";
 import type { User } from "../types/user";
 import type { chat } from "../types/chat";
+import { getChats } from "../service/chat";
+import { formatTime } from "../utils/utils";
 
 const Chat = ({ activeUser }: { activeUser: User }) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<chat[]>([]);
-  console.log(messages);
   const { id } = useParams();
   const user = useAppSelector((store) => store.user.currentUser);
   const userID = user?._id;
@@ -26,8 +27,24 @@ const Chat = ({ activeUser }: { activeUser: User }) => {
   };
 
   const fetchChatMessages = async () => {
-    const chatMessages = await 
-  }
+    await getChats({ id: id }).then((res) => {
+      console.log(res);
+      if (res?.data?.messages) {
+        const messagesToMap = res.data.messages.map((msg: any) => {
+          const { message, createdAt, senderId, _id } = msg;
+          return {
+            message,
+            createdAt,
+            senderId: senderId._id,
+            _id,
+          };
+        });
+        setMessages(messagesToMap);
+      } else {
+        setMessages([]);
+      }
+    });
+  };
 
   useEffect(() => {
     if (!userID) return;
@@ -35,10 +52,14 @@ const Chat = ({ activeUser }: { activeUser: User }) => {
     //as soon as the page loads,socket connection is made and joinchat event is emitted
     socket.emit("joinChat", { firstName: user?.firstName, userId: userID, id });
 
-    socket.on("messageReceived", ({ id, firstName, message }) => {
-      console.log(message + "by -" + firstName);
-      setMessages((messages) => [...messages, { id, firstName, message }]);
+    socket.on("messageReceived", ({ id, message, senderId, createdAt }) => {
+      setMessages((messages) => [
+        ...messages,
+        { _id: id, senderId, message, createdAt },
+      ]);
     });
+
+    fetchChatMessages();
 
     return () => {
       socket.disconnect();
@@ -59,16 +80,23 @@ const Chat = ({ activeUser }: { activeUser: User }) => {
 
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
-        {messages.map((msg) => (
-          <div
-            key={msg.id}
-            className={`chat ${
-              msg.firstName === activeUser.firstName ? "chat-end" : "chat-start"
-            }`}
-          >
-            <div className="chat-bubble">{msg.message}</div>
-          </div>
-        ))}
+        {messages.map((msg) => {
+          return (
+            <div
+              key={msg._id}
+              className={`chat ${
+                msg.senderId === userID ? "chat-end" : "chat-start"
+              }`}
+            >
+              <div className="chat-bubble flex flex-col">
+                <span>{msg.message}</span>
+                <span className="text-[10px] opacity-70 mt-1 text-right">
+                  {msg.createdAt && formatTime(msg.createdAt)}
+                </span>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* Message Input */}
