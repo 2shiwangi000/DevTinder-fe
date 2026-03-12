@@ -33,3 +33,10 @@ export const completion = (fields: Record<string, boolean>) => {
   return BASE + completedCount * PER_FIELD;
 };
 
+export const formatTime = (date: string) => {
+  if (!date) return "N/A";
+  return new Date(date).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
