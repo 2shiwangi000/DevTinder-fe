@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
     const verify = async () => {
       const res = await userGetByID();
 
-      if (res.authenticated && res?.user?.code === 200) {
+      if (res?.authenticated && res?.user?.code === 200) {
         dispatch(addUser(res.user?.data));
         setAllowed(true);
       } else {

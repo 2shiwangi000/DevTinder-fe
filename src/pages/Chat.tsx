@@ -25,6 +25,10 @@ const Chat = ({ activeUser }: { activeUser: User }) => {
     setMessage("");
   };
 
+  const fetchChatMessages = async () => {
+    const chatMessages = await 
+  }
+
   useEffect(() => {
     if (!userID) return;
     console.log("joining chat ...");
