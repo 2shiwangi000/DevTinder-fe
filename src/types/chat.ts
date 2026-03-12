@@ -1,5 +1,6 @@
 export interface chat {
-  id: string;
-  firstName: string;
+  _id: string;
+  senderId:string;
   message: string;
+  createdAt?: string;
 }
