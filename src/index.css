@@ -16,3 +16,30 @@
 .rotate-y-180 {
   transform: rotateY(180deg);
 }
+
+/* GLOBAL SCROLLBAR STYLE */
+
+/* Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* Chrome, Edge, Safari */
+*::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+/* Show scrollbar on hover */
+*:hover::-webkit-scrollbar {
+  width: 6px;
+}
+
+*:hover::-webkit-scrollbar-thumb {
+  background: rgba(120,120,120,0.5);
+  border-radius: 10px;
+}
+
+*:hover {
+  scrollbar-width: thin;
+}

@@ -18,11 +18,8 @@ const Connections = () => {
   const [activeUser, setActiveUser] = useState<User | null>(null);
 
   const getAllConnection = async () => {
-    await getAllConnections().then((res: any) => {
-      if (res?.data) {
-        dispatch(addConnections(res?.data));
-      }
-    });
+    const res: any = await getAllConnections();
+    if (res?.data) dispatch(addConnections(res.data));
   };
 
   useEffect(() => {
@@ -33,81 +30,65 @@ const Connections = () => {
   }, []);
 
   useEffect(() => {
-    if (activeUser?._id) {
-      navigate(`/connections/${activeUser._id}`);
-    } else {
-      navigate("/connections");
-    }
+    if (activeUser?._id) navigate(`/connections/${activeUser._id}`);
+    else navigate("/connections");
   }, [activeUser]);
 
   if (!currentConnections?.length) {
     return (
-      <div className="flex justify-center items-center h-64 text-gray-400">
+      <div className="flex justify-center items-center h-[60vh] text-gray-400 text-lg">
         No connections yet 🤝
       </div>
     );
   }
 
   return (
-    <div className="flex h-[calc(100vh-64px)] bg-base-100">
-      {/* LEFT: Connections list */}
-      <aside className="w-80 border-r border-base-300 overflow-y-auto">
-        <h2 className="p-4 font-semibold text-lg">Connections</h2>
+    <div className="flex h-[calc(100vh-64px)] overflow-hidden bg-base-100">
+      {/* LEFT SIDEBAR */}
+      <aside className="w-80 border-r border-base-300 flex flex-col">
+        {/* Header */}
+        <div className="p-4 font-semibold text-lg border-b border-base-300">
+          Connections
+        </div>
 
-        {currentConnections?.map((user) => {
-          const hobbies = user.hobbies?.slice(0, 2) || [];
+        {/* Scrollable users */}
+        <div className="flex-1 overflow-y-auto">
+          {currentConnections.map((user) => {
+            const hobbies = user.hobbies?.slice(0, 2) || [];
 
-          return (
-            <div
-              key={user._id}
-              onClick={() => setActiveUser(user)}
-              className={`flex items-start gap-3 p-4 cursor-pointer hover:bg-base-200 transition
-        ${activeUser?._id === user._id ? "bg-base-200" : ""}
-      `}
-            >
-              {/* Info */}
+            return (
               <div
                 key={user._id}
                 onClick={() => setActiveUser(user)}
-                className={`flex items-start gap-3 p-4 cursor-pointer hover:bg-base-200 transition
-    ${activeUser?._id === user._id ? "bg-base-200" : ""}
-  `}
+                className={`flex gap-3 p-4 cursor-pointer hover:bg-base-200 transition
+            ${activeUser?._id === user._id ? "bg-base-200" : ""}`}
               >
-                {/* Avatar */}
-                <div className="avatar mt-1">
-                  <Avatar
-                    user={user}
-                    size="w-12 rounded-full"
-                    avatarSize="font-semibold"
-                  />
-                </div>
+                <Avatar
+                  user={user}
+                  size="w-12 h-12 rounded-full"
+                  avatarSize="font-semibold"
+                />
 
-                {/* Info */}
                 <div className="flex-1 min-w-0">
-                  {/* Name */}
                   <p className="font-medium truncate">
                     {user.firstName} {user.lastName || ""}
                   </p>
 
-                  {/* Chips row */}
                   <div className="flex flex-wrap gap-1 mt-1">
-                    {/* Age */}
                     {user.age && (
                       <span className="badge badge-ghost badge-sm">
                         {user.age} yrs
                       </span>
                     )}
 
-                    {/* Gender */}
                     {user.gender && (
                       <span
-                        className={`badge badge-sm ${genderBadgeClass(user?.gender)} capitalize`}
+                        className={`badge badge-sm ${genderBadgeClass(user.gender)} capitalize`}
                       >
-                        {user?.gender || "N/A"}
+                        {user.gender}
                       </span>
                     )}
 
-                    {/* Hobbies */}
                     {hobbies.map((hobby) => (
                       <span
                         key={hobby}
@@ -119,24 +100,21 @@ const Connections = () => {
                   </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </aside>
 
-      {/* RIGHT: Chat window (placeholder) */}
-      <section className="flex-1 flex items-center justify-center text-gray-400">
+      {/* RIGHT CHAT SECTION */}
+      <section className="flex-1 flex flex-col overflow-hidden">
         {activeUser ? (
-          <>
-            {" "}
-            {/* <span>
-              Chat with{" "}
-              <span className="font-semibold">{activeUser.firstName}</span>
-            </span> */}
-            <Chat activeUser={activeUser}/>
-          </>
+          <Chat activeUser={activeUser} />
         ) : (
-          <span>Select a connection to start chatting 💬</span>
+          <div className="flex flex-col items-center justify-center h-full text-gray-400">
+            <span className="text-lg">
+              Select a connection to start chatting 💬
+            </span>
+          </div>
         )}
       </section>
     </div>

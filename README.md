@@ -15,8 +15,8 @@
 - ngnix install (it gives http server)
 - sudo systemctl start nginx ------------------------------------> start nginx
 - cd /var/www/html/ ---------------------------------------------> server path
-- scp -r dist/\* ------------------------------------------------> copy command from dist
-- sudo scp -r dist/\* /var/www/html/ ----------------------------> copy dist(made from build) to the path
+- scp -r dist/* ------------------------------------------------> copy command from dist (direct command)
+- sudo scp -r dist/* /var/www/html/ ----------------------------> copy dist(made from build) to the path
 - enable port :80 on instance
 
 (BE deploy process)
