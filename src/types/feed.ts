@@ -1,3 +1,5 @@
+type Gender = "male" | "female" | "lgbtq";
+
 export interface FeedUser {
   _id: string;
   firstName: string;
@@ -8,7 +10,7 @@ export interface FeedUser {
   createdAt: string;
   updatedAt: string;
   about: string;
-  gender: string;
+  gender?: Gender;
   age: number;
 }
 
