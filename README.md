@@ -75,8 +75,8 @@ proxy_pass http://localhost:4000/;
 
 # WebSocket implementation for real time chat
 
-- 
-- 
+- HW - userid and target userid are friends or connected
+- status: online,infinite scrolling
 - 
 
 
