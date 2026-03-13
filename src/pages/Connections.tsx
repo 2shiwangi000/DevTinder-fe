@@ -43,9 +43,14 @@ const Connections = () => {
   }
 
   return (
-    <div className="flex h-[calc(100vh-64px)] overflow-hidden bg-base-100">
+    <div className="flex flex-col md:flex-row h-[calc(100vh-64px)] bg-base-100">
       {/* LEFT SIDEBAR */}
-      <aside className="w-80 border-r border-base-300 flex flex-col">
+      <aside
+        className={`
+  ${activeUser ? "hidden md:flex" : "flex"}
+  md:w-80 w-full border-r border-base-300 flex-col
+`}
+      >
         {/* Header */}
         <div className="p-4 font-semibold text-lg border-b border-base-300">
           Connections
@@ -106,9 +111,14 @@ const Connections = () => {
       </aside>
 
       {/* RIGHT CHAT SECTION */}
-      <section className="flex-1 flex flex-col overflow-hidden">
+      <section
+        className={`
+  flex-1 flex flex-col overflow-hidden
+  ${activeUser ? "flex" : "hidden md:flex"}
+`}
+      >
         {activeUser ? (
-          <Chat activeUser={activeUser} />
+          <Chat activeUser={activeUser} setActiveUser={setActiveUser} />
         ) : (
           <div className="flex flex-col items-center justify-center h-full text-gray-400">
             <span className="text-lg">

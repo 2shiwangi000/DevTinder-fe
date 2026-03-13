@@ -8,7 +8,13 @@ import type { chat } from "../types/chat";
 import { getChats } from "../service/chat";
 import { formatTime } from "../utils/utils";
 
-const Chat = ({ activeUser }: { activeUser: User }) => {
+const Chat = ({
+  activeUser,
+  setActiveUser,
+}: {
+  activeUser: User;
+  setActiveUser: React.Dispatch<React.SetStateAction<User | null>>;
+}) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<chat[]>([]);
   const { id } = useParams();
@@ -69,9 +75,12 @@ const Chat = ({ activeUser }: { activeUser: User }) => {
   return (
     <div className="flex flex-col w-full h-full">
       {/* Header */}
-      <div className="border-b border-base-300 p-4 flex items-center gap-3">
-        <Avatar user={activeUser} size="w-10 h-10 rounded-full" />
+      <div className="flex items-center gap-3 border-b  border-base-300 p-3">
+        <button onClick={() => setActiveUser(null)} className="md:hidden">
+          ←
+        </button>
 
+        <Avatar user={activeUser} size="w-10 h-10 rounded-full" />
         <div>
           <p className="font-semibold">{activeUser.firstName}</p>
           <p className="text-sm text-gray-400">Online</p>
