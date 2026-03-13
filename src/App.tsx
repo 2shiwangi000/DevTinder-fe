@@ -14,7 +14,7 @@ function App() {
   //   const savedTheme = localStorage.getItem("theme") || "dark";
   //   document.documentElement.setAttribute("data-theme", savedTheme);
   // }, []);
-  return (
+  return ( 
     <Routes>
       {/* Public routes */}
       <Route element={<MainLayout authenticated={false} />}>
