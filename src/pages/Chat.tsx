@@ -21,6 +21,8 @@ const Chat = ({
   const user = useAppSelector((store) => store.user.currentUser);
   const userID = user?._id;
   const socket = createSocketConnection();
+  const [isOnline, setIsOnline] = useState(false);
+  console.log(isOnline)
 
   const sendMessage = () => {
     socket.emit("sendMessage", {
@@ -65,7 +67,19 @@ const Chat = ({
       ]);
     });
 
-    fetchChatMessages();
+    socket.on("onlineUser", (userId) => {
+      if (userId === activeUser._id) setIsOnline(true);
+    });
+
+    socket.on("offlineUser", (userId) => {
+      if (userId === activeUser._id) setIsOnline(false);
+    });
+
+    socket.emit("checkUserOnline", { id }, (isOnline: boolean) => {
+      setIsOnline(isOnline);
+    });
+
+    if (id) fetchChatMessages();
 
     return () => {
       socket.disconnect();
@@ -75,18 +89,29 @@ const Chat = ({
   return (
     <div className="flex flex-col w-full h-full">
       {/* Header */}
-      <div className="flex items-center gap-3 border-b  border-base-300 p-3">
+      <div className="flex items-center gap-3 border-b border-base-300 p-3">
         <button onClick={() => setActiveUser(null)} className="md:hidden">
           ←
         </button>
 
         <Avatar user={activeUser} size="w-10 h-10 rounded-full" />
+
         <div>
           <p className="font-semibold">{activeUser.firstName}</p>
-          <p className="text-sm text-gray-400">Online</p>
+
+          <div className="flex items-center gap-2 text-sm">
+            <span
+              className={`w-2.5 h-2.5 rounded-full ${
+                isOnline ? "bg-green-500" : "bg-gray-400"
+              }`}
+            ></span>
+
+            <span className="text-gray-400">
+              {isOnline ? "Online" : "Offline"}
+            </span>
+          </div>
         </div>
       </div>
-
       {/* Messages */}
       <div className="flex-1 overflow-y-auto p-4 space-y-3">
         {messages.map((msg) => {
