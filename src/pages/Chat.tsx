@@ -22,9 +22,10 @@ const Chat = ({
   const userID = user?._id;
   const socket = createSocketConnection();
   const [isOnline, setIsOnline] = useState(false);
-  console.log(isOnline)
+  console.log(isOnline);
 
   const sendMessage = () => {
+    if (!message.trim()) return;
     socket.emit("sendMessage", {
       firstName: user?.firstName,
       userId: userID,
@@ -135,15 +136,26 @@ const Chat = ({
 
       {/* Message Input */}
       <div className="border-t border-base-300 p-4 flex gap-2">
-        <input
-          type="text"
+        <textarea
+          maxLength={500}
+          // type="text"
           placeholder="Type a message..."
           className="input input-bordered w-full"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              sendMessage();
+            }
+          }}
         />
 
-        <button onClick={sendMessage} className="btn btn-primary">
+        <button
+          disabled={!message.trim()}
+          onClick={sendMessage}
+          className="btn btn-primary"
+        >
           Send
         </button>
       </div>
