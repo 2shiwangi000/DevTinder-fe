@@ -8,12 +8,13 @@ import Connections from "./pages/Connections";
 import Requests from "./pages/Requests";
 import AuthFlipCard from "./pages/AuthFlipCard";
 import Premium from "./components/common/Premium";
+import { useEffect } from "react";
 
 function App() {
-  //  React.useEffect(() => {
-  //   const savedTheme = localStorage.getItem("theme") || "dark";
-  //   document.documentElement.setAttribute("data-theme", savedTheme);
-  // }, []);
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme") || "light";
+    document.documentElement.setAttribute("data-theme", savedTheme);
+  }, []);
   return ( 
     <Routes>
       {/* Public routes */}

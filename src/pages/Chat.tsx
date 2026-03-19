@@ -84,6 +84,9 @@ const Chat = ({
 
     return () => {
       socket.disconnect();
+      setMessages([]);
+      setIsOnline(false);
+      setMessage("");
     };
   }, [userID, id]);
 
